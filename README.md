@@ -1,5 +1,7 @@
 # EasyRide
 
+### Developer: Chelsea Lyu, Qianqian Yu
+
 This Django web application facilitates a ride-sharing service that allows users to assume the roles of ride owners, drivers, or sharers. Users can request rides, drive for them, and join rides, managing multiple roles across various rides.
 
 ## Features
