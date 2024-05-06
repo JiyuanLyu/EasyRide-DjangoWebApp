@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>My Drives</h2>
+    {% if my_drives %}
+    <ul class="list-group">
+        {% for drive in my_drives %}
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col">
+                    <div><strong>Destination:</strong> {{ drive.destination }}</div>
+                    <div><strong>Time:</strong> {{ drive.required_arrival_date_time }}</div>
+                    <div><strong>Vehicle Type:</strong> {{ drive.vehicle_type }}</div>
+                    <div><strong>Special Requests:</strong> {{ drive.special_request }}</div>
+                </div>
+                <div class="col-auto d-flex align-items-start">
+
+                    <a href="{% url 'ride_info' drive.ride_id %}" class="btn btn-outline-primary">Details</a>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>You have no confirmed drives.</p>
+    {% endif %}
+</div>
+{% endblock %}

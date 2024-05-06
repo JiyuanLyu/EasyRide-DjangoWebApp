@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <!-- Big Title Greeting -->
+    <h1 class="display-3">Hi, {{ request.user.user_name }}!</h1>
+
+    <!-- <p>usrname: {{ request.user.user_name }}</p>
+    <p>usr id: {{ request.user.user_id }}</p> -->
+    <div class="row justify-content-center mt-5">
+        <!-- Personal Information Box with Green Border -->
+        <div class="col-md-4 mb-3">
+            <div class="card" style="border-color: rgb(38, 167, 38); border-width: 2px;">
+                <div class="card-header text-white" style="background-color: rgb(38, 167, 38);">
+                    Personal Information
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Email: {{ request.user.email_address }}</p>
+                    <p class="card-text">Username: {{ request.user.user_name }}</p>
+                    <!-- Button to Edit Personal Info -->
+                    <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary">Edit Personal Info</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conditional Vehicle Information Box for Drivers with Green Border -->
+        {% if is_driver and vehicle_info %}
+        <div class="col-md-4 mb-3">
+            <div class="card" style="border-color: rgb(38, 167, 38); border-width: 2px;">
+                <div class="card-header text-white" style="background-color: rgb(38, 167, 38);">
+                    Driver Information
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Driver Name: {{ vehicle_info.driver_name }}</p>
+                    <p class="card-text">Vehicle Type: {{ vehicle_info.vehicle_type }}</p>
+                    <p class="card-text">License Plate: {{ vehicle_info.license_plate }}</p>
+                    <p class="card-text">Max Passengers: {{ vehicle_info.max_passengers }}</p>
+                    <p class="card-text">Special Vehicle Info: {{ vehicle_info.special_vehicle_info }}</p>
+                    <!-- Button to Edit Driver Info -->
+                    <a href="{% url 'edit_driver' %}" class="btn btn-outline-primary">Edit Driver Info</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

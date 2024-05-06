@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <h2>Wanna be a driver? Welcome!</h2>
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="row">
+            <div class="form-group row my-2">
+                <label for="driver_name" class="col-sm-2 col-form-label">Driver Name:</label>
+                <div class="col-lg-10">
+                    {{ driver_request_form.driver_name }}
+                </div>
+            </div>
+
+            <div class="form-group row my-2">
+                <label for="vehicle_type" class="col-sm-2 col-form-label">Vehicle Type:</label>
+                <div class="col-lg-10">
+                    {{ driver_request_form.vehicle_type }}
+                </div>
+            </div>
+
+            <div class="form-group row my-2">
+                <label for="license_plate" class="col-sm-2 col-form-label">License Plate Number:</label>
+                <div class="col-lg-10">
+                    {{ driver_request_form.license_plate }}
+                </div>
+            </div>
+
+            <div class="form-group row my-2">
+                <label for="max_passengers" class="col-sm-2 col-form-label">You car's max passengers:</label>
+                <div class="col-lg-10">
+                    {{ driver_request_form.max_passengers }}
+                </div>
+            </div>
+
+            <div class="form-group row my-2">
+                <label for="special_request" class="col-sm-2 col-form-label">Special Request (optional):</label>
+                <div class="col-lg-10">
+                    {{ driver_request_form.special_vehicle_info }}
+                </div>
+            </div>
+
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Request</button>
+    </form>
+</div>
+
+
+{% endblock %}

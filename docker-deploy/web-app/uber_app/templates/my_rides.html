@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>My Rides</h2>
+    {% if my_rides %}
+    <ul class="list-group">
+        {% for ride in my_rides %}
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col">
+                    <div><strong>Destination:</strong> {{ ride.destination }}</div>
+                    <div><strong>Time:</strong> {{ ride.required_arrival_date_time }}</div>
+                    <div><strong>Vehicle Type:</strong> {{ ride.vehicle_type }}</div>
+                    <div><strong>Special Requests:</strong> {{ ride.special_request }}</div>
+                </div>
+                <div class="col-auto d-flex align-items-start">
+
+                    <a href="{% url 'ride_info' ride.ride_id %}" class="btn btn-outline-primary">Details</a>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>You have no rides.</p>
+    {% endif %}
+</div>
+{% endblock %}

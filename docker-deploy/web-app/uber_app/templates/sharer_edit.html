@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <h2>Edit a Join ride</h2>
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="row">
+            <div class="form-group row my-2">
+                <label for="sharer_passenger_num" class="col-sm-2 col-form-label">Number of Passengers:</label>
+                <div class="col-lg-10">
+                    {{ form.sharer_passenger_num }}
+                </div>
+            </div>
+
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+        <a href="{% url 'ride_info' ride.ride_id %}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" name="quit" class="btn btn-danger"
+            onclick="return confirm('Are you sure you want to quit this ride?');">Quit Ride</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="container">
+        <h2>Enter Ride Sharing Details</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="form-group row my-2">
+                    <label for="destination" class="col-sm-2 col-form-label">Destination:</label>
+                    <div class="col-lg-10">
+                        {{ sharer_request_form.destination }}
+                    </div>
+                </div>
+                <div class="form-group row my-2">
+                    <label for="earliest_arrival_date_time" class="col-sm-2 col-form-label">Earliest Arrival:</label>
+                    <div class="col-lg-10">
+                        {{ sharer_request_form.earliest_arrival_date_time }}
+                    </div>
+                </div>
+                <div class="form-group row my-2">
+                    <label for="latest_arrival_date_time" class="col-sm-2 col-form-label">Lastest Arrival:</label>
+                    <div class="col-lg-10">
+                        {{ sharer_request_form.latest_arrival_date_time }}
+                    </div>
+                </div>
+                <div class="form-group row my-2">
+                    <label for="sharer_passenger_num" class="col-sm-2 col-form-label">Number of Passengers:</label>
+                    <div class="col-lg-10">
+                        {{ sharer_request_form.sharer_passenger_num }}
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Find Rides</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const earliestInput = document.getElementById('id_earliest_arrival_date_time');
+        const latestInput = document.getElementById('id_latest_arrival_date_time');
+        function updateLatestTimeMin() {
+            const earliestTime = earliestInput.value;
+            if (earliestTime) {
+                latestInput.setAttribute('min', earliestTime);
+            }
+        }
+
+        const now = new Date();
+        const localDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+        earliestInput.setAttribute('min', localDateTime);
+        latestInput.setAttribute('min', localDateTime);
+
+        earliestInput.addEventListener('change', updateLatestTimeMin);
+    });
+</script>
+
+
+{% endblock %}

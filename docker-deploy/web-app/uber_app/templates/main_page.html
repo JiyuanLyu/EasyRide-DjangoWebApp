@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <p class="lead">Easy ride. Easy travel.</p>
+    {% if user.is_authenticated %}
+    <div class="col-auto my-3">
+        <a href="{% url 'ride_request' %}" class="btn btn-outline-success btn-block">Start a Ride</a>
+    </div>
+    <div class="col-auto my-3">
+        <a href="{% url 'sharer_request' %}" class="btn btn-outline-success btn-block">Join a Ride</a>
+    </div>
+    <!-- <p>Username: {{ user }}</p>
+    <p>Driver status: {{ is_driver }}</p> -->
+    {% if is_driver %}
+    <div class="col-auto my-3">
+        <a href="{% url 'search_driver_rides' %}" class="btn btn-outline-success btn-block">Go Drive</a>
+    </div>
+    {% else %}
+    <div class="col-auto my-3">
+        <a href="{% url 'create_driver_success' %}" class="btn btn-outline-success btn-block">Become a Driver</a>
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div class="col-auto my-3">
+        <a href="{% url 'login_success' %}" class="btn btn-outline-success btn-block">Log In</a>
+    </div>
+    <div class="col-auto my-3">
+        <a href="{% url 'create_user_success' %}" class="btn btn-success btn-block">Register</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

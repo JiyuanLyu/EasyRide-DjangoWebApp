@@ -1,0 +1,25 @@
+Danger Log
+
+01/31: cannot connect the docker's database
+       We firstly built own database in the local
+
+02/01: fix the bug that the user data could not store in the database.
+
+02/02: fix the bug that user could oder rides at past time.
+       We use time APIs to restrict user only could choose now and future
+
+02/02: fix the bug that fail to edit is_driver when create a new is_driver
+       We rewrite save() that is_driver assign to true so that when we call driver.save() we update is_driver
+
+02/03: fix the bug cannot use built-in authenticate, log in, log out
+       We stransform custom User model to built-in user model
+
+02/05: fix the bug that cannot send email to user
+
+02/05: fix the bug that duplocate user name and email in the database
+       When register, check whether type in user name and email exist in the database
+
+02/05: fix the bug that driver could not accept rides which need to arrives at same time
+       We will exclude the rides which share same time in the potential rides for driver
+
+02/07: find and fix the bug that one person join the same ride multiple times.

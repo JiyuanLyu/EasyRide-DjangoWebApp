@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Available Rides for Your Plan</h2>
+    {% if valid_rides %}
+    <ul class="list-group">
+        {% for ride in valid_rides %}
+        <li class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Destination: {{ ride.destination }} <br></h5>
+                <h5 class="mb-1">Time: {{ ride.required_arrival_date_time }} <br></h5>
+                <a href="{% url 'sharer_join' ride.ride_id %}" class="btn btn-outline-primary">Join This Ride</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No rides available matching your plan.</p>
+    {% endif %}
+</div>
+{% endblock %}

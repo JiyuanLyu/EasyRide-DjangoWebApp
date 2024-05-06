@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <!-- <p>Username: {{ user }}</p>
+    <p>isOwner: {{ isOwner }}</p>
+    <p>owner: {{ owner }}</p>
+    <p>isDriver: {{ isDriver }}</p>
+    <p>vehicle: {{ vehicle }}</p>
+    <p>sharers: {{ sharers }}</p> -->
+    <ul class="list-group">
+        <li class="list-group-item">
+            <h2>Ride Details</h2>
+            <div class="row">
+                <div class="col">
+                    <div><strong>Destination:</strong> {{ ride.destination }}</div>
+                    <div><strong>Arrival Time:</strong> {{ ride.required_arrival_date_time }}</div>
+                    <div><strong>Vehicle Type:</strong> {{ ride.vehicle_type }}</div>
+                    <div><strong>Special Requests:</strong> {{ ride.special_request }}</div>
+                    <div><strong>Is Shared:</strong> {{ ride.shared }}</div>
+                    <div><strong>Ride Status:</strong> {{ ride.status }}</div>
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <h2>Ride Owner Details</h2>
+            <div class="row">
+                <div class="col">
+                    <div><strong>Owner Username:</strong> {{ owner }}</div>
+                    <div><strong>Owner Riders:</strong> {{ ride.owner_passenger_num }}</div>
+                </div>
+                {% if isOwner %}
+                <div class="col-auto d-flex align-items-start">
+                    <a href="{% url 'owner_edit' ride.ride_id %}" class="btn btn-outline-primary">Edit</a>
+                </div>
+                {% endif %}
+            </div>
+        </li>
+        <li class="list-group-item">
+            <h2>Ride Sharers Details</h2>
+            {% if ride.shared %}
+            <ul class="list-group">
+                {% if sharers %}
+                {% for sharer in sharers %}
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col">
+                            <!-- <div> {{sharer.share_user.user_id}} </div> -->
+                            <div><strong>Sharer Username:</strong> {{ sharer }}</div>
+                            <div><strong>Sharer Riders Number:</strong> {{ sharer.passenger_num }}</div>
+                        </div>
+                        {% if sharer.share_user == request.user %}
+                        <div class="col-auto d-flex align-items-start">
+                            <a href="{% url 'sharer_edit' sharer.share_user.user_id ride.ride_id %}"
+                                class="btn btn-outline-primary">Edit</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endfor %}
+
+                {% else %}
+                <p>This ride has no sharer yet.</p>
+                {% endif %}
+            </ul>
+            {% else %}
+            <p>This ride is not shared.</p>
+            {% endif %}
+        </li>
+        <li class="list-group-item">
+            <h2>Ride Driver Details</h2>
+            {% if vehicle.driver %}
+            <div class="row">
+                <div class="col">
+                    <div><strong>Driver Username:</strong> {{ vehicle.driver }}</div>
+                    <div><strong>Driver Legal Name:</strong> {{ vehicle.driver_name }}</div>
+                    <div><strong>Vehicle License Plate:</strong> {{ vehicle.license_plate }}</div>
+                    <div><strong>Vehicle Max Passengers:</strong> {{ vehicle.max_passengers }}</div>
+                    <div><strong>Special Vehicle Infomation:</strong> {{ vehicle.special_vehicle_info }}</div>
+                </div>
+                {% if isDriver and ride.status == 'confirmed' %}
+                <div class="col-auto d-flex align-items-start">
+                    <a href="{% url 'driver_complete' ride.ride_id %}" class="btn btn-outline-primary">Mark Complete</a>
+                </div>
+                {% endif %}
+            </div>
+            {% else %}
+            <p>This ride has no driver yet.</p>
+            {% endif %}
+        </li>
+    </ul>
+</div>
+{% endblock %}
